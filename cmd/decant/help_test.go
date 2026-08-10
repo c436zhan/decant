@@ -21,5 +21,12 @@ func TestSubcommandHelpIsSuccess(t *testing.T) {
 				}
 			})
 		}
+
+		t.Run(verb+"/unknown-flag", func(t *testing.T) {
+			code, _, _ := runCLI(verb, "--nonexistent-flag")
+			if code != exitUsage {
+				t.Errorf("exit code = %d, want %d", code, exitUsage)
+			}
+		})
 	}
 }

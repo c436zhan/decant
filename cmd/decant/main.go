@@ -198,6 +198,10 @@ func parseArgs(fs *flag.FlagSet, args []string) ([]string, error) {
 	}
 }
 
+// usageError maps a flag-parse failure onto an exit status. flag.ErrHelp is
+// not a failure: the flag package has already printed the usage text, and
+// spec section 3 reserves exit 2 for a usage error, which asking for help is
+// not. Every other parse failure is one.
 func usageError(err error) error {
 	if errors.Is(err, flag.ErrHelp) {
 		return nil
